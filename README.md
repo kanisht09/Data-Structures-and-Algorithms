@@ -22,7 +22,7 @@ Repo-Structure:
    * Name of Algo
    * Implementation and Code
    * Time Complexity
-   * Sample Stabdard Problems (From different coding platforms)
+   * Sample Standard Problems (From different coding platforms)
  
  
  
