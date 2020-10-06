@@ -6,23 +6,23 @@ Repo-Structure:
 
 
 
-# Data Structures :
+## Data Structures :
 
-  *Name of DS
-  *Implementation
-  *Applications
-  *Sample Standard Problems  (From different coding platforms)
+   * Name of DS
+   * Implementation
+   * Applications
+   * Sample Standard Problems  (From different coding platforms)
   
   
   
   
   
- # Algorithms :
+ ## Algorithms :
 
-  *Name of Algo
-  *Implementation and Code
-  *Time Complexity
-  *Sample Stabdard Problems (From different coding platforms)
+   * Name of Algo
+   * Implementation and Code
+   * Time Complexity
+   * Sample Stabdard Problems (From different coding platforms)
  
  
  
