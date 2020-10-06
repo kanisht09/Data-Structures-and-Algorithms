@@ -4,14 +4,20 @@ This repo is meant for beginners and intermediate coders who can add their algor
 
 Repo-Structure:
 
-Data Structures :
+
+
+# Data Structures :
 
   .Name of DS
   .Implementation
   .Applications
   .Sample Standard Problems  (From different coding platforms)
   
- Algorithms :
+  
+  
+  
+  
+ # Algorithms :
 
   .Name of Algo
   .Implementation and Code
