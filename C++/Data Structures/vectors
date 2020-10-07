@@ -3,7 +3,7 @@ using namespace std;
 int main ()
 {
     vector<int>m(5);        // Declaring a vector m of size 5.
-    // Checking the size of vector m
+    
     cout<<"Initial Size : "<<m.size()<<"\n";   
     
     //Taking inputs just like an array.
