@@ -1,1 +1,279 @@
-
+#include <bits/stdc++.h>
+#define ull unsigned ll
+#define ll long long int
+#define ld long double
+#define pb push_back
+#define mp make_pair
+#define mt make_tuple
+#define ff first
+#define ss second
+#define pi acos(-1)
+#define nu 100
+#define INF 100000000000
+#pragma GCC optimize("Ofast")
+#pragma GCC target("avx,avx2,fma")
+#pragma GCC optimization ("unroll-loops")
+#define F(i,a,n) for(ll i=a;i<n;i++)
+#define B(i,a,n) for(ll i=n-1;i>=a;i--)
+ 
+#define tc int t;cin>>t;while(t--)
+#define tcf ll t;cin>>t;for(int w=1;w<=t;w++)
+ 
+const int mod = 1000000007;
+ 
+ 
+using namespace std;
+ 
+ 
+ll binpow(ll a, ll b)
+{
+    ll res = 1;
+    while (b > 0)
+    {
+        if (b & 1)
+        {
+            res = (res * a);
+        }
+        a = (a * a);
+        b >>= 1;
+    }
+    return res;
+}
+ 
+ll binpowmod(ll a, ll b, ll m)
+{
+    ll res = 1;
+    while (b > 0)
+    {
+        if (b & 1)
+        {
+            res = ((res % m) * (a % m)) % m;
+        }
+        a = ((a % m) * (a % m)) % m;
+        b >>= 1;
+    }
+    return res;
+}
+ 
+ 
+void dex(int a)
+{
+    if (a == 1)
+        cout << "1\n";
+    else if (a == -1)
+        cout << "-1\n";
+    else if (a == 0)
+        cout << "0\n";
+    else if (a == 2)
+        cout << "YES\n";
+    else if (a == 3)
+        cout << "NO\n";
+    else if (a == 4)
+        cout << "yes\n";
+    else if (a == 5)
+        cout << "no\n";
+}
+ 
+ll fermat_inv(ll y) {return binpow(y, mod - 2);}
+ll fact[100005];
+ll finv[100005];
+void factorial(int n) {
+    fact[0] = 1;
+    finv[0] = 1;
+    for (int i = 1; i <= n; i++)
+        fact[i] = fact[i - 1] * i, fact[i] %= mod, finv[i] = fermat_inv(fact[i]);
+}
+ll ncr(ll n, ll r)
+{
+    if (n < r)
+        return 0;
+    else {
+        ll x = finv[r] * finv[n - r] % mod;
+        return fact[n] * x % mod;
+    }
+}
+bool prime[10000001];
+vector<ll>v;
+void seive()
+{
+    memset(prime, 1, sizeof(prime));
+    for (ll i = 2; i * i <= 10000001; i++)
+    {
+        if (prime[i] == 1)
+        {
+            for (ll j = i * i; j <= 10000001 ; j += i)
+            {
+                prime[j] = 0;
+            }
+        }
+    }
+    for (ll i = 2; i <= 12; i++)
+    {
+        if (prime[i])
+        {
+            v.pb(i);
+        }
+    }
+ 
+}
+bool primech(ll n)
+{
+    // Corner cases
+    if (n <= 1)  return false;
+    if (n <= 3)  return true;
+ 
+    // This is checked so that we can skip
+    // middle five numbers in below loop
+    if (n % 2 == 0 || n % 3 == 0) return false;
+ 
+    for (int i = 5; i * i <= n; i = i + 6)
+        if (n % i == 0 || n % (i + 2) == 0)
+            return false;
+ 
+    return true;
+}
+ 
+ 
+//Polynomial Rolling Hash function\\
+ 
+const int MOD = 1e9 + 9;
+const int p_o = 53;
+vector<ll>p_pow;
+void ffpow(ll n)
+{
+ 
+    p_pow.resize(n);
+    p_pow[0] = 1;
+    F(i, 1, n)
+    {
+        p_pow[i] = (p_pow[i - 1] * p_o) % MOD;
+    }
+}
+ll Hash(string const&s)
+{
+    ll res = 0;
+    ll j = 0;
+    for (auto i : s)
+    {
+        res += (((i - 'a' + 1) % MOD) * (p_pow[j] % MOD)) % MOD;
+        j++;
+    }
+    return res;
+}
+ 
+ 
+vector<ll>adj[100010];
+vector<ll>vis(100010, 0);
+vector<ll>R(100010, 0);
+vector<ll>par(100010);
+vector<ll>col(100010);
+vector<ll>dis(100010, 0);
+vector<ll>indegree(100010, 0);
+vector<ll>st(100000, 0);
+ll r = 0;
+ll k;
+bool flag = true;
+ll ct = 0;
+ll ans = 0;
+void dfs(ll node)
+{
+    vis[node] = 1;
+    for (auto i : adj[node])
+    {
+        if (!vis[i])
+        {
+            par[i] = node;
+            dfs(i);
+        }
+    }
+}
+ 
+void bfs(ll node)
+{
+    vis[node] = 1;
+    queue<ll>q;
+    q.push(node);
+    dis[node] = 0;
+    while (!q.empty())
+    {
+        ll src = q.front();
+        q.pop();
+        for (auto i : adj[src])
+        {
+            if (!vis[i])
+            {
+                dis[i] = dis[src] + 1;
+                q.push(i);
+                vis[i] = 1;
+            }
+        }
+    }
+}
+int Find(int x)
+{
+    if (par[x] < 0)
+        return x;
+    return par[x] = Find(par[x]);
+}
+void Union(int x, int y)
+{
+    if (R[x] > R[y])
+    {
+        par[x] += par[y];
+        R[x] += R[y];
+        par[y] = x;
+    }
+    else
+    {
+        par[y] += par[x];
+        R[y] += R[x];
+        par[x] = y;
+    }
+}
+int d1[][1] = {0, 1};
+int d2[][2] = {{0, 0}, {1, 1}, {1, 0}, {0, 1}};
+int d3[][3] = {{1, 1, 0}, {1, 0, 0}, {1, 0, 1}, {1, 1, 1}, {0, 0, 0}, {0, 1, 1}, {0, 1, 0}, {0, 0, 1}};
+int d4[][4] = {{0, 0, 0, 0}, {1, 1, 1, 1}, {1, 0, 0, 0}, {0, 1, 0, 0}, {0, 0, 1, 0}, {0, 0, 0, 1}, {1, 1, 0, 0}, {1, 0, 1, 0}, {1, 0, 0, 1}, {0, 1, 1, 0}, {0, 0, 1, 1}, {0, 1, 0, 1}, {1, 1, 1, 0}, {0, 1, 1, 1}, {1, 0, 1, 1}, {1, 1, 0, 1}};
+int d5[][5] = {{1, 0, 0, 0, 0}, {1, 1, 1, 1, 1}, {1, 1, 0, 0, 0}, {1, 0, 1, 0, 0}, {1, 0, 0, 1, 0}, {1, 0, 0, 0, 1}, {1, 1, 1, 0, 0}, {1, 1, 0, 1, 0}, {1, 1, 0, 0, 1}, {1, 0, 1, 1, 0}, {1, 0, 0, 1, 1}, {1, 0, 1, 0, 1}, {1, 1, 1, 1, 0}, {1, 0, 1, 1, 1}, {1, 1, 0, 1, 1}, {1, 1, 1, 0, 1}, {0, 0, 0, 0, 0}, {0, 1, 1, 1, 1}, {0, 1, 0, 0, 0}, {0, 0, 1, 0, 0}, {0, 0, 0, 1, 0}, {0, 0, 0, 0, 1}, {0, 1, 1, 0, 0}, {0, 1, 0, 1, 0}, {0, 1, 0, 0, 1}, {0, 0, 1, 1, 0}, {0, 0, 0, 1, 1}, {0, 0, 1, 0, 1}, {0, 1, 1, 1, 0}, {0, 0, 1, 1, 1}, {0, 1, 0, 1, 1}, {0, 1, 1, 0, 1}};
+ 
+ll c[200005][7];
+int main()
+{
+ 
+#ifndef ONLINE_JUDGE
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+#endif
+ 
+    ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+ 
+    ll n, e;
+    cin >> n >> e; // nodes // edges
+    for (ll i = 1; i <= n; i++)
+    {
+        vis[i] = 0;
+        adj[i].clear();
+    }
+    ll x, y;
+    for (ll i = 1; i <= e; i++)
+    {
+        cin >> x >> y;
+        adj[x].pb(y);
+        adj[y].pb(x);
+    }
+    dfs(1);
+    for (ll i = 1; i <= n; i++)
+    {
+        cout << i << "-->";
+        for (auto j : adj[i])
+        {
+            cout << j << " ";
+        }
+        cout << "\n";
+    }
+ 
+ 
+    return 0;
+ 
+ 
+}
