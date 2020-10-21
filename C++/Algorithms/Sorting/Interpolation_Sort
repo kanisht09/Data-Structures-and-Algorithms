@@ -1,1 +1,50 @@
 
+#include<stdio.h>
+#include<stdlib.h>
+int main()
+{
+ 
+    int n;
+    printf("Enter the size of the array\n");
+    scanf("%d",&n);
+    int a[n];
+    printf("Enter the elements in the array\n");
+    for(int i=0;i<n;i++)
+    {
+        scanf("%d",&a[i]);
+    }
+    int val;
+    int low=0;
+    int high=n-1;
+    int pos=-1;
+    printf("Enter the value you want to search in the array :\n");
+    scanf("%d",&val);
+    while(low<=high)
+    {
+        int mid=low+(high-low)*((val-a[low])/(a[high]-a[low]));
+        if(a[mid]==val)
+        {
+            pos=mid+1;
+            break;
+        }
+        else if(a[mid]<val)
+        {
+            low=mid+1;  // vsl lies in the 2nd-half
+        }
+        else
+        {
+            high=mid-1; //val lies in the 1st-half
+        }
+    }
+    if(pos==-1)
+    {
+        printf("The element is not present \n");
+    }
+    else
+    {
+        printf("The value is present in the %d position",pos);
+    }
+ 
+    return 0;
+}
+ 
