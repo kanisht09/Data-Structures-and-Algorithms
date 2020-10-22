@@ -1,1 +1,68 @@
-
+import java.util.*;
+class QuickSort 
+{  
+    public static void main(String[] args)
+    {  
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        int[] arr=new int[n];  
+        for(int i=0;i<n;i++)
+        {
+            arr[i]=sc.nextInt();
+        }
+        quickSort(arr,0,n-1);  
+        System.out.println("The sorted array is:");  
+        for(int i=0;i<n;i++)  
+        {
+            System.out.print(arr[i]+" ");
+        }
+        System.out.println();
+    }  
+    public static int partition(int a[], int beg, int end)  
+    {  
+        int l,r,t,k,f;     
+        k=beg;
+        l=beg;
+        r=end;  
+        f=0;  
+        while(f!=1)  
+        {  
+            while((a[k]<=a[r])&&(k!=r))
+                r--;
+            if(k==r)  
+                f=1;  
+            else if(a[k]>a[r])  
+            {  
+                t=a[k];  
+                a[k]=a[r];  
+                a[r]=t;  
+                k=r;  
+            }  
+            if(f!=1)  
+            {  
+                while((a[k]>=a[l])&&(k!=l))  
+                    l++;  
+                if(k==l)  
+                    f =1;  
+                else if(a[k] <a[l])  
+                {  
+                    t=a[k];  
+                    a[k]=a[l];  
+                    a[l]=t;  
+                    k=l;  
+                }  
+            }  
+        }  
+        return k;  
+    }  
+    static void quickSort(int a[],int beg,int end)  
+    {  
+        int k;  
+        if(beg<end)  
+        {  
+            k=partition(a,beg,end);  
+            quickSort(a,beg,k-1);  
+            quickSort(a,k+1,end);  
+        }  
+    }  
+}  
