@@ -1,0 +1,35 @@
+//Fast Exponentiation in C++
+
+int power(int a, int n){
+	if(n==0)
+		return 1;
+	else if (n==1)
+		return a;
+	else{
+		int r=power(a,n/2);//evry time the computation is reduced by half
+		if((n&1)==0)//even check
+			return r*r;
+		else
+			return r*r*a;
+	}
+}
+
+
+/*
+Time Complexity: of Fast Exponentiation is O(log N)
+*/
+
+/*
+Applications
+-Effective computation of large exponents modulo a number
+-Determining Number of paths of length k in a graph
+-Fast application of a set of geometric operations to a set of points
+*/
+
+/*
+Sample Problems:
+- http://codeforces.com/problemset/problem/630/I
+- http://www.spoj.com/problems/ZSUM/
+- http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=310
+- http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=3671
+*/

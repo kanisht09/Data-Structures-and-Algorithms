@@ -1,1 +1,29 @@
-
+import java.util.Arrays;
+import java.util.*; 
+class CoinChange 
+{ 
+    static long countWays(int S[], int m, int n) 
+    { 
+        long[] table = new long[n+1]; 
+        Arrays.fill(table, 0);
+        table[0]=1;
+        for (int i=0; i<m; i++) 
+            for (int j=S[i]; j<=n; j++) 
+                table[j] += table[j-S[i]]; 
+        return table[n]; 
+    } 
+    public static void main(String args[]) 
+    {
+        Scanner sc=new Scanner(System.in);
+        System.out.println("Enter the amount:");
+        int n=sc.nextInt();
+        System.out.println("Enter the number of denominations:");
+        int m=sc.nextInt();
+        System.out.println("Enter the denominations:");
+        int arr[]=new int[m];
+        for(int i=0;i<m;i++)
+            arr[i]=sc.nextInt();
+        System.out.println("The number of solutions possible are:");
+        System.out.println(countWays(arr, m, n)); 
+    } 
+} 
