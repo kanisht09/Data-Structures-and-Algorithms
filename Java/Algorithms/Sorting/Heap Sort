@@ -62,7 +62,7 @@
       printArray(arr);
     }
   }
-
+  
 /*
 Time Complexity:
 Heap Sort has O(nlog n) time complexities for all the cases 
@@ -71,8 +71,15 @@ Reason : The height of a complete binary tree containing n elements is log n
 */
 
 /*
-Heap Sort Applications:
+ Applications Heap Sort:
 Systems concerned with security and embedded systems such as Linux Kernel
 use Heap Sort because of the O(n log n) upper bound on Heapsort's running time 
 and constant O(1) upper bound on its auxiliary storage.
 */
+
+/*
+Sample problem:
+- https://www.hackerearth.com/practice/algorithms/sorting/heap-sort/practice-problems/algorithm/cube-change-qualifier2/
+*/
+
+
