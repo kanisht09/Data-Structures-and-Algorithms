@@ -26,5 +26,3 @@ Repo-Structure:
    * Sample Standard Problems (From different coding platforms)
  
  
- 
-# You may find files in this repo not fulfilling the criterion mentioned below and some incomplete do give a pr if its comfortable from ur end , would be happy to merge it
