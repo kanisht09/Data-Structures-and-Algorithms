@@ -1,1 +1,68 @@
+#include<bits/stdc++.h>
+#define ll long long
+#pragma GCC optimize("Ofast")
+#pragma GCC target("avx,avx2,fma")
+#pragma GCC optimization ("unroll-loops")
+#define mod 1000000007
+#define F(i,a,n) for(ll i=a;i<n;i++)
 
+using namespace std;
+
+ll binpow(ll a,ll b)
+{
+    a%=mod;
+    ll res=1;
+    while(b)
+    {
+        if(b&1)
+            res=(res*a)%mod;
+        a=(a*a)%mod;
+        b>>=1;
+    }
+    res%=mod;
+    return res;
+}
+ll dp[100001];
+ll finv[100001];
+void compute_hash(string &s)
+{
+    // a should start from 1 
+    
+    ll m=1000000009;
+    ll p=31;
+    dp[0]=(s[0]-'a'+1);
+    finv[0]=1;
+    ll p_pow=1;
+    F(i,1,s.size())
+    {
+        p_pow=(p_pow*p)%m;
+        finv[i]=binpow(p_pow,m-2);
+        dp[i]=(dp[i-1]+(s[i]-'a'+1)*p_pow)%m;
+    }
+}
+ll substring_hash(ll l,ll r)
+{
+    ll res=dp[r];
+    if(l-1>0)
+        res-=dp[l-1];
+    res=(res*finv[l])%mod;
+    return res;
+}
+int main()
+{
+    ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+    
+    string s;
+    cin>>s;
+    compute_hash(s);
+    ll q,l,r;
+    cin>>q;
+    F(i,0,q)
+    {
+        cin>>l>>r; // 0-based
+        ll ans=substring_hash(l,r);
+        cout<<ans<<"\n";
+    }
+    
+    return 0;
+}
