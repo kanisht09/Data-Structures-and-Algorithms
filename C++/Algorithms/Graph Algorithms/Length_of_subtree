@@ -1,0 +1,60 @@
+#include <bits/stdc++.h>
+#define ll long long
+#define ld long double
+#define pb push_back
+#define mp make_pair
+using namespace std;
+
+vector<ll>sub(200005,0);
+vector<ll>vis(200005,0);
+vector<ll>adj[200005];
+
+ll dfs(ll node)
+{
+    ll ct=1;
+    vis[node]=1;
+    for(auto i:adj[node])
+    {
+        if(!vis[i])
+        {
+            ct+=dfs(i);
+        }
+    }
+    sub[node]=ct;
+    return ct;
+}
+
+int main()
+{
+
+
+	ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+
+    ll n;
+    cin>>n;
+    for(ll i=1;i<=n;i++)
+    {
+        vis[i]=0;
+        sub[i]=0;
+        adj[i].clear();
+    }
+    ll x;
+    for(ll i=1;i<n;i++)
+    {
+        cin>>x;
+        adj[x].pb(i+1);
+        adj[i+1].pb(x);
+    }
+    dfs(1);
+    // length of each subtree rooted at i
+    for(ll i=1;i<=n;i++)
+    {
+        sub[i]--;
+        cout<<sub[i]<<" ";
+    }
+    cout<<"\n";
+    
+    
+    	
+	return 0;
+}
