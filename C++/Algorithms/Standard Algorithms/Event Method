@@ -1,0 +1,74 @@
+#include <bits/stdc++.h>
+#define ull unsigned ll
+#define ll long long int
+#define ld long double
+#define pb push_back
+#define mp make_pair
+#define mt make_tuple
+#define ff first
+#define ss second
+#define nui 100
+#define pi 3.1415926535897932384626
+#define nu 2
+#define INF 100000000000
+#pragma GCC optimize("Ofast")
+#pragma GCC target("avx,avx2,fma")
+#pragma GCC optimization ("unroll-loops")
+#define F(i,a,n) for(ll i=a;i<n;i++)
+#define B(i,a,n) for(ll i=n-1;i>=a;i--)
+#define tc int t;cin>>t;while(t--)
+#define tcf ll t;cin>>t;for(int w=1;w<=t;w++)
+#define Ans(a,b) cout<<"Case #"<<a<<": "<<b<<"\n";
+#define vi vector<int>
+#define vll vector<ll>
+#define pii pair<int,int>
+#define pll pair<ll,ll>
+using namespace std;
+
+int main()
+{
+
+#ifndef ONLINE_JUDGE
+    freopen("input.txt", "r", stdin);
+    freopen("op.txt", "w", stdout);
+#endif
+
+
+    ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+
+    tc{
+        ll n, k;
+        cin >> n >> k;
+        ll x, y;
+        vector<pair<ll, ll>>v;
+        F(i, 0, n)
+        {
+            cin >> x >> y;
+            v.pb(mp(x, 1));
+            v.pb(mp(y, -1));
+        }
+        sort(v.begin(), v.end());
+        // If R is not inclusive acc to the problem
+        
+        ll ct = 0;
+        ll maxi = 0;
+        for (auto i : v)
+        {
+            if (i.ss > 0)
+            {
+                ct++;
+            }
+            else
+            {
+                ct--;
+            }
+            maxi = max(ct, maxi);
+        }
+        ll ans = myceil(maxi, k);
+        cout << ans << "\n";
+    }
+    return 0;
+
+}
+
+// For 10^5 Block size=700/
