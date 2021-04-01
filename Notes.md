@@ -4,4 +4,4 @@
 * For min-max range queries segment trees can be used.
 * #### Numbers which are perfect squares have odd number of divisors.
 * If the number is odd, it has only odd divisors and an even number not divisible by 4 will have same number of odd and even divisors and even number will have more number of even divisors if it is divisible by 4. 
-
+* xenodrome number : a number which has distinct digits in a particular base.
