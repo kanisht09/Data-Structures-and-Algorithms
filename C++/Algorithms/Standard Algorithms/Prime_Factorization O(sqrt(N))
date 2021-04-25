@@ -1,0 +1,75 @@
+#include <bits/stdc++.h>
+#define ull unsigned ll
+#define ll long long int
+#define ld long double
+#define pb push_back
+#define mp make_pair
+#define mt make_tuple
+#define ff first
+#define ss second
+#define pi 3.1415926535897932384626
+#define INF 100000000000
+#pragma GCC optimize("Ofast")
+#pragma GCC target("avx,avx2,fma")
+#pragma GCC optimization ("unroll-loops")
+#define F(i,a,n) for(ll i=a;i<n;i++)
+#define B(i,a,n) for(ll i=n-1;i>=a;i--)
+#define tc int t;cin>>t;while(t--)
+#define tcf ll t;cin>>t;for(int w=1;w<=t;w++)
+#define Ans(a,b) cout<<"Case #"<<a<<": "<<b<<"\n";
+#define inter(i,j) cout<<"? "<<i<<" "<<j<<endl;fflush(stdin);
+#define vi vector<int>
+#define vll vector<ll>
+#define pii pair<int,int>
+#define pll pair<ll,ll>
+#define debuga(x)  cout<<"# "<<x<<"\n";
+#define debugb(x,y) cout<<"# "<<x<<"  "<<y<<"\n";
+using namespace std;
+
+
+
+map<ll,ll>spf;
+void compute(ll n)
+{
+    while(n>0 && n%2==0)
+    {
+        n/=2;
+        spf[2]++;
+    }
+    for(ll i=3;i<=sqrt(n);i+=2)
+    {
+        while(n%i==0)
+        {
+            n/=i;
+            spf[i]++;
+        }
+    }
+    if(n>2)
+    {
+        spf[n]++;
+    }
+}
+
+
+int main()
+{
+
+    ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+
+    ll n;
+    cin>>n;
+    compute(n);
+    for(auto i:spf)
+    {
+        cout<<i.ff<<" "<<i.ss<<"\n";
+    }
+    
+    return 0;
+
+}
+
+// For 10^5 Block size=700
+
+
+// ctrl+alt+b
+
