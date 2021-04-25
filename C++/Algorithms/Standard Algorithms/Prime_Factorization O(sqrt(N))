@@ -4,7 +4,7 @@
 #define ld long double
 #define pb push_back
 #define mp make_pair
-#define mt make_tuple
+#define mt make_tupl
 #define ff first
 #define ss second
 #define pi 3.1415926535897932384626
@@ -27,6 +27,8 @@
 using namespace std;
 
 
+// The idea uses wheel factorisation 
+// skipping even numbers
 
 map<ll,ll>spf;
 void compute(ll n)
