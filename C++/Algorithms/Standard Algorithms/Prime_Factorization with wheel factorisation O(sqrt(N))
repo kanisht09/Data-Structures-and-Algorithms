@@ -46,7 +46,7 @@ void compute(ll n)
     }
     static array<int,8>incre={4,2,4,2,4,6,2,6};
     int j=0;
-    for(ll i=7;i<=sqrt(n);i+incre[j++])
+    for(ll i=7;i<=sqrt(n);i+=incre[j++])
     {
         while(n%i==0)
         {
