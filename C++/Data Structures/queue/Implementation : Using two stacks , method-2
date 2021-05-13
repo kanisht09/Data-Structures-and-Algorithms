@@ -1,0 +1,61 @@
+#include <bits/stdc++.h>
+#define ll long long
+#define vll vector<ll>
+#define mp make_pair
+#define pb push_back
+#define ff first
+#define ss second
+using namespace std;
+
+struct Queue
+{
+    stack<int>s1,s2;
+    void enqueue(int x)
+    {
+        s1.push(x);
+    }
+    void dequeue()
+    {
+        if(s1.empty() && s2.empty())
+        {
+            cout<<"Invalid operation\n";
+        }
+        if(s2.empty())
+        {
+            while(!s1.empty())
+            {
+                s2.push(s1.top());
+                s1.pop();
+            }
+        }
+        int x=s2.top();
+        s2.pop();
+        cout<<x<<"\n";
+    }
+};
+int main() {
+	
+	ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+	
+	// Implementation of Queue using two stacks
+	// O(1) enqueue
+	// O(n) dequeue  O(1) amortized time complexity
+	
+	
+	ll t;
+	t=1;
+	//cin>>t;
+	while(t--)
+	{
+	    Queue q;   
+	    q.enqueue(1);
+	    q.enqueue(2);
+	    q.enqueue(3);
+	    q.dequeue();
+	    q.dequeue();
+	    q.dequeue();
+	     
+	}
+	
+	return 0;
+}
