@@ -1,0 +1,75 @@
+#include <bits/stdc++.h>
+#define ll long long
+#define vll vector<ll>
+#define mp make_pair
+#define pb push_back
+#define ff first
+#define ss second
+using namespace std;
+
+
+#define INF 1e18
+
+vector<pair<ll,ll>>adj[100005];
+vector<ll>vis(100005,0);
+vector<ll>dis(100005,0);
+
+int main() {
+	
+	ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+	
+	ll t;
+	t=1;
+// 	cin>>t;
+	while(t--)
+	{
+	    ll n,m;
+	    cin>>n>>m; // nodes // edges
+	    
+	    for(ll i=1;i<=n;++i)
+	    {
+	        adj[i].clear();
+	        vis[i]=0;
+	        dis[i]=INF;
+	    }
+	    priority_queue<pair<ll,ll>,vector<pair<ll,ll>>,greater<pair<ll,ll>>>q;  // min heap
+	    ll x,y,wt;
+	    for(ll i=0;i<m;i++)
+	    {
+	        cin>>x>>y>>wt;
+	        adj[x].pb({y,wt});
+	        adj[y].pb({x,wt});  // for directed graph comment this line
+	        
+	    }
+        ll src;
+        // define src or take input for src;
+        
+        src=1;  // assuming src to be root -> 1
+        dis[src]=0;
+        q.push({dis[src],src});
+        while(!q.empty())
+        {
+            ll curdis=q.front().ff;
+            ll curnode=q.front().ss;
+            q.pop();
+            for(auto i:adj[curnode])
+            {
+                if(dis[i.ff]>curdis+i.ss)
+                {
+                    dis[i.ff]=curdis+i.ss;
+                    q.push({dis[i.ff],i.ff});
+                }
+            }
+        }
+        // here dis[i] will represent the shortest distance between the source node and other nodes
+        
+        for(ll i=1;i<=n;i++)
+        {
+            cout<<dis[i]<<" ";
+        }
+        cout<<"\n";
+	    
+	}
+	
+	return 0;
+}
