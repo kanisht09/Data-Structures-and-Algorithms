@@ -49,8 +49,8 @@ int main() {
         q.push({dis[src],src});
         while(!q.empty())
         {
-            ll curdis=q.front().ff;
-            ll curnode=q.front().ss;
+            ll curdis=q.top().ff;
+            ll curnode=q.top().ss;
             q.pop();
             for(auto i:adj[curnode])
             {
