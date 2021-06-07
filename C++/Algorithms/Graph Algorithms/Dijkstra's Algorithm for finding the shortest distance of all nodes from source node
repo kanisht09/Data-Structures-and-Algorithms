@@ -52,6 +52,7 @@ int main() {
             ll curdis=q.top().ff;
             ll curnode=q.top().ss;
             q.pop();
+	    if(curdis!=dis[curnode])continue;
             for(auto i:adj[curnode])
             {
                 if(dis[i.ff]>curdis+i.ss)
