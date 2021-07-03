@@ -1,0 +1,162 @@
+#include <bits/stdc++.h>
+#define ll long long
+#define ld long double
+#define vll vector<ll>
+#define mp make_pair
+#define pb push_back
+#define pll pair<ll,ll>
+#define ff first
+#define ss second
+#define all(x) x.begin(), x.end()
+#define F(i,a,n) for(ll i=a;i<n;i++)
+#define fil(ar, val) memset(ar, val, sizeof(ar))
+using namespace std;
+
+const int mod = 1000000007;
+
+ll gcd(ll a, ll b) {return (b == 0) ? a : gcd(b, a % b);}
+ll lcm(ll a, ll b) {return ((a * b) / (gcd(a, b)));}
+ll binpow(ll a, ll b)
+{
+    ll res = 1;
+    while (b > 0)
+    {
+        if (b & 1)
+        {
+            res = (res * a);
+        }
+        a = (a * a);
+        b >>= 1;
+    }
+    return res;
+}
+void printv(vector<ll>&v)
+{
+    for (auto i : v)
+    {
+        cout << i << " ";
+    }
+    cout << "\n";
+}
+
+ll binpowmod(ll a, ll b, ll cmod = mod)
+{
+
+    a %= cmod;
+    ll res = 1;
+    while (b > 0)
+    {
+        if (b & 1)
+        {
+            res = ((res % cmod) * (a % cmod)) % cmod;
+        }
+        a = ((a % cmod) * (a % cmod)) % cmod;
+        b >>= 1;
+    }
+    res %= cmod;
+    return res;
+}
+
+
+ll Add(ll x, ll y, ll mod)
+{
+    ll z = x + y;
+    if (z >= mod)
+        z -= mod;
+    return z;
+}
+ll Sub(ll x, ll y, ll mod)
+{
+    ll z = x - y;
+    if (z < 0)
+        z += mod;
+    return z;
+}
+ll Mul(ll x, ll y, ll mod)
+{
+    return (x * y) % mod;
+}
+ll Div(ll x, ll y, ll mod)
+{
+    return Mul(x, binpowmod(y, mod - 2, mod), mod);
+}
+
+
+bool primech(ll n)
+{
+    if (n <= 1)  return false;
+    if (n <= 3)  return true;
+    if (n % 2 == 0 || n % 3 == 0) return false;
+    for (int i = 5; i * i <= n; i = i + 6)
+        if (n % i == 0 || n % (i + 2) == 0)
+            return false;
+    return true;
+}
+ll subsum(vector<ll>&c, ll m)
+{
+    ll sum = 0;
+    ll maxi = 0;
+    unordered_map<ll, ll>mx;
+    F(i, 0, m)
+    {
+        sum += c[i];
+        if (sum == 0)
+        {
+            maxi = max(maxi, i + 1);
+        }
+        else
+        {
+            if (mx.count(sum))
+            {
+                maxi = max(maxi, i - mx[sum]);
+            }
+            else
+            {
+                mx[sum] = i;
+            }
+        }
+    }
+    return maxi;
+}
+
+
+int main() {
+
+    ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+
+
+    int t;
+    t = 1;
+    // cin >> t;
+    // sieve();
+    while (t--)
+    {
+        // largest rectangular sub matrix with equal number of 0s and 1s
+
+        ll n, m;
+        cin >> n >> m;
+        ll a[n][m];
+        F(i, 0, n)
+        {
+            F(j, 0, m)
+            {
+                cin >> a[i][j];
+            }
+        }
+        ll maxi = 0;
+        F(i, 0, n)
+        {
+            vector<ll>c(m);
+            F(j, i, n)
+            {
+                F(k, 0, m)
+                {
+                    c[k] += (a[j][k] == 0) ? -1 : 1;
+                }
+                maxi = max(maxi, subsum(c, m) * (j - i + 1));
+            }
+        }
+        cout << maxi << "\n";
+    }
+
+}
