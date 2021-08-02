@@ -1,0 +1,88 @@
+#include <bits/stdc++.h>
+#define mod 1000000007
+#define ull unsigned ll
+#define ll long long int
+#define ld long double
+#define pb push_back
+#define mp make_pair
+#define mt make_tuple
+#define ff first
+#define ss second
+#define pi acos(-1)
+#define nui 100
+#define INF 100000000000
+
+#define F(i,a,n) for(ll i=a;i<n;i++)
+#define B(i,a,n) for(ll i=n-1;i>=a;i--)
+#define tc int t;cin>>t;while(t--)
+#define tcf int t;cin>>t;for(int w=1;w<=t;w++)
+
+
+
+using namespace std;
+
+
+struct Minqueue
+{
+    stack<pair<int,int>>s1,s2;
+    void Push(int x)
+    {
+        int new_minimum=s1.empty()?x:min(x,s1.top().ss);
+        s1.push({x,new_minimum});
+    }
+    int Pop()
+    {
+       if(s2.empty())
+       {
+           while(!s1.empty())
+           {
+               int element=s1.top().ff;
+               s1.pop();
+               int new_minimum=s2.empty()?element:min(element,s2.top().ss);
+               s2.push({element,new_minimum});
+           }
+       }
+       int removed_element=s2.top().ff;
+       s2.pop();
+       return removed_element;
+    }
+    int getMin()
+    {
+        int minimum;
+        if(s1.empty()||s2.empty())
+            minimum=s1.empty()?s2.top().ss:s1.top().ss;
+        else
+            minimum=min(s1.top().ss,s2.top().ss);
+        return minimum;
+    }
+};
+
+struct Maxqueue{
+  stack<int>s1,s2;
+  
+    
+};
+
+int main()
+{
+
+
+
+    ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+
+    Minqueue q;
+    q.Push(2);
+    q.Push(3);
+    cout<<q.getMin()<<"\n";
+    q.Push(1);
+    cout<<q.getMin()<<"\n";   
+    q.Pop();
+    cout<<q.getMin()<<"\n";   
+    q.Push(0);
+    cout<<q.getMin()<<"\n"; 
+ 
+    
+    
+    return 0;
+
+}
