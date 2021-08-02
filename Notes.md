@@ -26,8 +26,9 @@ left_border   = max(min(x1,x2),min(x3,x4))
 right_border  = min(max(x1,x2),max(x3,x4))
 
 
-The above logic can be extended to 2-D 
-
+The above logic can be extended to 2-D.
+* GCD function is monotonically decreasing function.
+GCD(a[l...r])>= GCD(a[l...r'] where r'>r
 
 
 
