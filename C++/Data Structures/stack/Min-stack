@@ -1,0 +1,75 @@
+#include <bits/stdc++.h>
+#define mod 1000000007
+#define ull unsigned ll
+#define ll long long int
+#define ld long double
+#define pb push_back
+#define mp make_pair
+#define mt make_tuple
+#define ff first
+#define ss second
+#define pi acos(-1)
+#define nui 100
+#define INF 100000000000
+
+#define F(i,a,n) for(ll i=a;i<n;i++)
+#define B(i,a,n) for(ll i=n-1;i>=a;i--)
+#define tc int t;cin>>t;while(t--)
+#define tcf int t;cin>>t;for(int w=1;w<=t;w++)
+
+
+
+using namespace std;
+
+
+ll binpow(ll a, ll b)
+{
+    ll res = 1;
+    while (b > 0)
+    {
+        if (b & 1)
+        {
+            res *= a;
+        }
+        a *= a;
+        b >>= 1;
+    }
+    return res;
+}
+stack<pair<int,int>>s;
+void Push(int x)
+{
+    int new_minimum=s.empty()?x:min(x,s.top().ss);
+    s.push({x,new_minimum});
+}
+int Pop()
+{
+    int removed_element=s.top().ff;
+    s.pop();
+    return removed_element;
+}
+int getMin()
+{
+    return s.top().ss;
+}
+
+
+int main()
+{
+
+
+
+    ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+
+    // Push(2);
+    // Push(3);
+    // cout<<getMin()<<"\n";
+    // Push(1);
+    // cout<<getMin()<<"\n";   
+    // Pop();
+    // cout<<getMin()<<"\n";   
+    
+    
+    return 0;
+
+}
