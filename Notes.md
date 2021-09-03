@@ -33,11 +33,11 @@ The above logic can be extended to 2-D.
 GCD(a[l...r])>= GCD(a[l...r'] where r'>r
 
 * In case in determining the upper bound for high in binary search (in case where a large value is possible (overflow))
-  Do this :
-  ll high=1;
-  while(!good(high))
-    high=*2LL;
-  where good() is the monotonic function.
+  Do this :  <br>
+  ll high=1; <br>
+  while(!good(high)) <br>
+    high=*2LL;<br>
+  where good() is the monotonic function. <br>
 
 
 
