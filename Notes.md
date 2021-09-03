@@ -36,7 +36,7 @@ GCD(a[l...r])>= GCD(a[l...r'] where r'>r
   Do this :  <br>
   ll high=1; <br>
   while(!good(high)) <br>
-        high=*2LL; <br>
+        high*=2LL; <br>
   where good() is the monotonic function. <br>
 
 
