@@ -1,0 +1,129 @@
+#include <bits/stdc++.h>
+#pragma GCC optimize("Ofast")
+#pragma GCC target("avx,avx2,fma")
+#pragma GCC optimization ("unroll-loops")
+
+#define mod 1000000007
+#define ull unsigned ll
+#define ll long long int
+#define ld long double
+#define pb push_back
+#define mp make_pair
+#define mt make_tuple
+#define ff first
+#define ss second
+#define pi acos(-1)
+
+#define all(x) x.begin(), x.end()
+#define F(i,a,n) for(int i=a;i<n;i++)
+
+
+
+#define INF 100000000000
+
+
+ll gcd(ll a, ll b) {return (b == 0) ? a : gcd(b, a % b);}
+
+
+using namespace std;
+
+
+// problem link
+// https://cses.fi/problemset/task/1678
+
+
+
+vector<int> adj[100001];
+int vis[100001];
+int parent[100001];
+
+// checking for cycles
+
+int cs=-1; // cycle start
+int ce=-1; // cycle end
+
+bool dfs(int node,int par=-1)
+{
+    vis[node]=1;
+    
+    for(auto i:adj[node])
+    {
+        if(!vis[i])
+        {
+            parent[i]=node; 
+            if(dfs(i,node)==true)
+                return true;
+        }
+        else
+        {
+            cs=i;
+            ce=node;
+            if(par!=i)
+                return true;
+        }
+    }
+    return false;
+}
+
+vector<int>formCycle()
+{
+    vector<int>cycle;
+    cycle.pb(cs);
+    for(int v=ce;v!=cs;v=parent[v])
+    {
+        cycle.pb(v);
+    }
+    cycle.pb(cs);
+    reverse(all(cycle));
+    return cycle;
+}
+
+int main()
+{
+
+    ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+    
+    int t;
+    t=1;
+    // cin>>t;
+    while(t--)
+    {
+        int n,m;
+        cin>>n>>m;
+        int u,v;
+        for(int i=1;i<=m;i++)
+        {
+            cin>>u>>v;
+            adj[u].pb(v);
+            adj[v].pb(u);
+        }
+        int cyc_found=0;
+        vector<int>cycle;
+        for(int i=1;i<=n;i++)
+        {
+            if(!vis[i])
+            {
+                if(dfs(i))
+                {
+                    cyc_found=1;
+                    cycle=formCycle();
+                    break;
+                }
+            }
+        }
+ 
+        if(cyc_found)
+        {
+            cout<<cycle.size()<<"\n";
+            for(auto i:cycle)
+                cout<<i<<" ";
+            cout<<"\n";
+        }
+        else
+        {
+            cout<<"IMPOSSIBLE\n";
+        }
+    }
+    return 0;
+
+}
