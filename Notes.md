@@ -40,7 +40,12 @@ GCD(a[l...r])>= GCD(a[l...r'] where r'>r
   where good() is the monotonic function. <br>
 
 
+* Longest path in a graph is a NP-Hard problem , however longest path in a DAG can be computed in polynomial time using topo-sort and Djiktsra cannot be modified to find the longest path in a graph.
 
+* 
+ (i)   Djikstra' Shortest Path - Greedy <br>
+ (ii)  Bellman Ford Algorithm - dp <br>
+ (iii) Floyd Warshall - dp <br>
  
  
  
