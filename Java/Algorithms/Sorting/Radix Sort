@@ -1,1 +1,71 @@
+import java.util.Arrays;
+
+// Java implementation of Radix Sort by use of count sort ( only for +ve elements )
+class RadixSort{
+
+    // Implementation of Radix Sort
+    public void radixSort( int[] arr )
+    {
+        int mx = getMax( arr );
+        for( int pos=1; mx/pos > 0 ; pos*=10 )
+            countSort( arr, pos );
+    }
+
+    // Implementation of Counting Sort
+    private void countSort( int[] arr, int pos )
+    {
+        int[] count = new int[10];
+        Arrays.fill(count,0);
+        int n = arr.length;
+
+        int[] ans = new int[n];
+        for( int i=0; i<n; i++ )
+            count[( arr[i]/pos) % 10 ] ++ ;
+        for( int i=1; i<=9; i++ )
+            count[i] += count[i-1] ;
+        for( int i=n-1; i>=0; i-- ){
+            count[(arr[i]/pos)%10] -- ;
+            ans[ count[(arr[i]/pos)%10] ] = arr[i] ;
+        }
+        for( int i=0; i<n; i++ )
+            arr[i] = ans[i] ;
+    }
+
+    // returns the maximum element of array
+    private int getMax( int[] arr )
+    {
+        int mx = arr[0];
+        for( int x : arr )
+            if( x > mx )
+                mx = x;
+        return mx ;
+    }
+}
+
+// Driver class to test above code
+public class Main  {
+    public static void main(String[] args) {
+
+        int[] arr = { 50, 10, 25, 5, 20, 10, 25, 22 };
+
+        System.out.println("Array before sorting : ");
+        System.out.println( Arrays.toString(arr) );
+
+        new RadixSort().radixSort(arr);
+
+        System.out.println("Array after sorting : ");
+        System.out.println( Arrays.toString(arr) );
+    }
+}
+
+/* This contribution is done by Sunny Kumar */
+
+/*
+OUTPUT :-
+
+Array before sorting :
+[50, 10, 25, 5, 20, 10, 25, 22]
+Array after sorting :
+[5, 10, 10, 20, 22, 25, 25, 50]
+*/
 
