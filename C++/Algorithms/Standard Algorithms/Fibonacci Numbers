@@ -1,0 +1,29 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+pair<int, int> fib (int n) {
+    if (n == 0)
+        return {0, 1};
+
+    auto p = fib(n >> 1);
+    int c = p.first * (2 * p.second - p.first);
+    int d = p.first * p.first + p.second * p.second;
+    if (n & 1)
+        return {d, c + d};
+    else
+        return {c, d};
+}
+
+int main() {
+    int n = 21;
+    for(int i=0; i<n; i++) cout << fib(i).first << "\n";
+    return 0;
+}
+
+/*
+> Time Complexity: O(log n)
+> Related Problems:
+* https://www.spoj.com/problems/MAIN74/
+* https://www.spoj.com/problems/FIBOSUM/
+* https://www.hackerrank.com/contests/projecteuler/challenges/euler002/problem
+*/
