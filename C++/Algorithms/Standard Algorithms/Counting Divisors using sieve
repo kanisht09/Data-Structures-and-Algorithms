@@ -1,0 +1,111 @@
+#include <bits/stdc++.h>
+// #include <sys/resource.h>
+#pragma GCC optimize("Ofast")
+#pragma GCC target("avx,avx2,fma")
+#pragma GCC optimization ("unroll-loops")
+
+
+#define ull unsigned ll
+#define ll long long int
+#define ld long double
+#define pb push_back
+#define mp make_pair
+#define mt make_tuple
+#define ff first
+#define ss second
+#define pi acos(-1)
+
+#define all(x) x.begin(), x.end()
+#define F(i,a,n) for(int i=a;i<n;i++)
+
+const ll mod=1e9+7;
+
+#define INF 100000000000
+
+
+ll gcd(ll a, ll b) {return (b == 0) ? a : gcd(b, a % b);}
+
+
+using namespace std;
+
+ll binpow(ll a,ll b,ll c=mod)
+{
+    ll res=1;
+    while(b>0)
+    {
+        if(b&1)
+        {
+            res=(res*a)%c;
+            
+        }
+        a=(a*a)%c;
+        b>>=1;
+    }
+    return res;
+}
+ll spf[1000005];
+void createSieve()
+{
+    for (ll i = 1; i <= 1000001; i++)
+    {
+        spf[i] = i;
+    }
+    for (ll i = 2; i * i <= 1000001; i++)
+    {
+        if (spf[i] == i)
+        {
+            for (ll j = i * i; j <= 1000001; j += i)
+            {
+                if (spf[j] == j)
+                {
+                    spf[j] = i;
+                }
+            }
+        }
+    }
+}
+
+int main()
+{
+
+// rlimit R;
+// getrlimit(RLIMIT_STACK, &R);
+// R.rlim_cur = R.rlim_max;
+// setrlimit(RLIMIT_STACK, &R);
+
+    ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+    
+    int t;
+    t=1;
+    cin>>t;
+    createSieve();
+    while(t--)
+    {
+        int n;
+        cin>>n;
+        int ct=1;
+        unordered_map<int,int>m;
+        while (n != 1)
+        {
+            m[spf[n]]++;
+            n /= spf[n];
+        }
+        for(auto i:m)
+        {
+            ct*=(i.ss+1);
+        }
+        cout<<ct<<"\n";
+    }
+    return 0;
+
+}
+
+/*
+
+Practice problem:
+https://cses.fi/problemset/task/1713
+
+
+*/
+
+
