@@ -1,1 +1,37 @@
 
+// Java implementation of Linear Search
+class LinearSearch{
+    // Returns index of item if found else returns -1
+    public int linearSearch( int[] arr, int item ){
+        for( int i=0; i<arr.length; i++ )
+            if( arr[i] == item )
+                return i; // item found , so returns index of item
+        // item not found so returns -1
+        return -1;
+    }
+}
+
+// Driver class to test above code
+public class Main  {
+    public static void main(String[] args) {
+
+        int[] arr = { 5, 10, 15, 20, 25, 50 };
+        int result;
+        LinearSearch obj = new LinearSearch();
+
+        result = obj.linearSearch(arr,10);
+        if( result != -1 )
+            System.out.println("10 found at index : " + result );
+        else
+            System.out.println("10 not found");
+
+        result = obj.linearSearch(arr,100);
+        if( result != -1 )
+            System.out.println("100 found at index : " + result );
+        else
+            System.out.println("100 not found");
+
+    }
+}
+
+/* This contribution is done by Sunny Kumar */
