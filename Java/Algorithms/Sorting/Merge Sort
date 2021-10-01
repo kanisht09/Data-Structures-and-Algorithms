@@ -1,1 +1,63 @@
 
+// Java implementation of Recursive Merge Sort
+class MergeSort{
+    // merge two halves of array a.. First halve [left,mid) and Second halve [mid ,right]
+    private void merge( int[] a, int[] temp, int left, int mid, int right ){
+        int i=left, j=mid, k=left;
+
+        while( (i<mid) && (j<=right) ){
+            if( a[i] <= a[j] ) temp[k++] = a[i++];
+            else temp[k++] = a[j++];
+        }
+
+        // add element to temp array if any element is left in first or second half
+        while ( i<mid ) temp[k++] = a[i++];
+        while ( j<=right ) temp[k++] = a[j++];
+
+       // replace back element of tmp to arr
+        for( int r=left; r<=right; r++ )
+            a[r] = temp[r];
+    }
+
+    // Method to perform merge sort int array a and from [low, high]
+    public void mergeSort( int[] a, int[] temp, int low, int high ){
+        if( low < high ){
+            int mid = (low+high)/2;
+
+            // sort partially these two halves first by calling mergeSort recursively
+            // two halves arrays - [mid,mid] and [mid+1,half]
+            mergeSort(a, temp, low, mid);
+            mergeSort(a, temp, mid+1, high);
+
+            // then merge those two halves
+            merge(a, temp, low, mid+1, high );
+        }
+    }
+}
+
+// Driver class to test above code
+public class Main  {
+    public static void main(String[] args) {
+
+        int[] arr = { 50, 10, 25, 5, 20, 10, 25, 22 };
+
+        System.out.println("Array before sorting : ");
+        System.out.println( Arrays.toString(arr) );
+
+        new MergeSort().mergeSort(arr, new int[arr.length], 0, arr.length-1);
+
+        System.out.println("Array after sorting : ");
+        System.out.println( Arrays.toString(arr) );
+    }
+}
+
+/* This contribution is done by Sunny Kumar */
+
+/*
+OUTPUT :-
+
+Array before sorting :
+[50, 10, 25, 5, 20, 10, 25, 22]
+Array after sorting :
+[5, 10, 10, 20, 22, 25, 25, 50]
+*/
