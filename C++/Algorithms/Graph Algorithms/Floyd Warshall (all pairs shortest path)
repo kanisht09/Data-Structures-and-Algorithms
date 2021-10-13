@@ -52,7 +52,7 @@ int main()
     for(ll i=0;i<m;i++)
     {
         cin>>x>>y>>z;
-        mat[x][y]=z;
+        mat[x][y]=min(z,mat[x][y]);
     }
     for(ll k=1;k<=n;k++)
     {
