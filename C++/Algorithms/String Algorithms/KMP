@@ -1,5 +1,4 @@
 #include <bits/stdc++.h>
-// #include <sys/resource.h>
 #pragma GCC optimize("Ofast")
 #pragma GCC target("avx,avx2,fma")
 #pragma GCC optimization ("unroll-loops")
@@ -46,11 +45,6 @@ ll binpowmod(ll a, ll b, ll m = mod)
 
 int main()
 {
-
-// rlimit R;
-// getrlimit(RLIMIT_STACK, &R);
-// R.rlim_cur = R.rlim_max;
-// setrlimit(RLIMIT_STACK, &R);
 
     ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
     
