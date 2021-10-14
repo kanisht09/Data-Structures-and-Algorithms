@@ -63,9 +63,12 @@ int main()
         string s;
         cin>>s;
         int n=s.length();
+        
+        // Forming the lps array : 
         int i=0,j=-1;
         int lps[n+1];
         lps[0]=-1;
+        
         
         while(i<n)
         {
