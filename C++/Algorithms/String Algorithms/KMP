@@ -43,6 +43,15 @@ ll binpowmod(ll a, ll b, ll m = mod)
     return res;
 }
 
+/*
+
+    Knuth Morris Pratt (KMP) Algorithm
+    Time Complexity : O(|S|+|P|) 
+    Problem link : https://www.spoj.com/problems/NAJPF/
+    
+
+*/
+
 int main()
 {
 
