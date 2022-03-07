@@ -1,82 +1,92 @@
 #include <bits/stdc++.h>
-#define ull unsigned ll
-#define ll long long int
-#define ld long double
-#define pb push_back
-#define mp make_pair
-#define mt make_tuple
-#define ff first
-#define ss second
-#define pi acos(-1)
-#define nu 100
-#define INF 100000000000
-#pragma GCC optimize("Ofast")
-#pragma GCC target("avx,avx2,fma")
-#pragma GCC optimization ("unroll-loops")
-#define F(i,a,n) for(ll i=a;i<n;i++)
-#define B(i,a,n) for(ll i=n-1;i>=a;i--)
- 
-#define tc int t;cin>>t;while(t--)
-#define tcf ll t;cin>>t;for(int w=1;w<=t;w++)
- 
-const int mod = 1000000007;
- 
- 
 using namespace std;
- 
- 
-vector<ll>adj[100010];
-vector<ll>vis(100010, 0);
-vector<ll>par(100010);
 
-
-
-void dfs(ll node)
+void addEdge(vector<int> adj[], int u, int v)
 {
-    vis[node] = 1;
-    for (auto i : adj[node])
+    adj[u].push_back(v);
+    adj[v].push_back(u);
+}
+
+void displayAdjacencyList(vector<int> adj[], int v)
+{
+    for (int i = 0; i < v; i++)
     {
-        if (!vis[i])
+        for (int x : adj[i])
         {
-            par[i] = node;
-            dfs(i);
+            cout << x << " ";
         }
+        cout << endl;
     }
 }
- 
+
+void DFSRec(vector<int> adj[], int s, bool visited[])
+{
+    visited[s] = true;
+    cout << s << " ";
+    for (int u : adj[s])
+    {
+        if (visited[u] == false)
+            DFSRec(adj, u, visited);
+    }
+}
+
+// If source is given and it is a connected graph
+void DFS(vector<int> adj[], int v, int s)
+{
+    bool visited[v + 1] = {false};
+    DFSRec(adj, s, visited);
+}
+
+// Disconnected Graph
+void DFS(vector<int> adj[], int v)
+{
+    bool visited[v + 1] = {false};
+    for (int i = 0; i < v; i++)
+    {
+        if (visited[i] == false)
+            DFSRec(adj, i, visited);
+    }
+}
+
+int countDisconnectComponents(vector<int> adj[], int v)
+{
+    bool visited[v + 1] = {false};
+    int count = 0;
+    for (int i = 0; i < v; i++)
+    {
+        if (visited[i] == false)
+        {
+            DFSRec(adj, i, visited);
+            count++;
+        }
+    }
+    return count;
+}
+
 int main()
 {
- 
+    int v = 6;
+    vector<int> adj[v];
+    addEdge(adj, 0, 4);
+    addEdge(adj, 0, 3);
+    addEdge(adj, 1, 2);
+    addEdge(adj, 1, 4);
+    addEdge(adj, 1, 5);
+    addEdge(adj, 2, 3);
+    addEdge(adj, 2, 5);
+    addEdge(adj, 5, 3);
+    addEdge(adj, 5, 4);
+    DFS(adj, v);
 
-    ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
- 
-    // DFS traversal of a tree rooted at 1
- 
-    ll n, e;
-    cin >> n >> e; // nodes // edges
-    for (ll i = 1; i <= n; i++)
-    {
-        vis[i] = 0;
-        adj[i].clear();
-    }
-    ll x, y;
-    for (ll i = 1; i <= e; i++)
-    {
-        cin >> x >> y;
-        adj[x].pb(y);
-        adj[y].pb(x);
-    }
-    dfs(1);
-    for (ll i = 1; i <= n; i++)
-    {
-        cout << i << "-->";
-        for (auto j : adj[i])
-        {
-            cout << j << " ";
-        }
-        cout << "\n";
-    }
+    // int V, E;
+    // cin >> V >> E;
+    // vector<int> adj[V];
+    // for (int i = 0; i < E; i++)
+    // {
+    //     int u, v;
+    //     cin >> u >> v;
+    //     addEdge(adj, u, v);
+    // }
 
     return 0;
- 
 }
