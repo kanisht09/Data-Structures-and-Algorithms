@@ -30,8 +30,12 @@ using namespace std;
 
 
 // Binary lifting for LCA 
-// Problem Link : https://www.spoj.com/problems/LCA/
-
+/* Problem Links : 
+    
+    https://www.spoj.com/problems/LCA/
+    https://cses.fi/problemset/task/1135
+ 
+*/
 
 int par[1001][20];
 int depth[1001];
