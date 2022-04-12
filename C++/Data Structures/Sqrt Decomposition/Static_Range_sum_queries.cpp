@@ -4,11 +4,11 @@ using namespace std;
 
 
 //  SQRT DECOMPOSITION  : GENRIC TEMPLATE
-// Complexity :  O(Q*sqrt(N)) 
+// Complexity :  O(Q*sqrt(N))
 // O(N) : pre-computation
 
 
-// Problem link :  https://cses.fi/problemset/task/1646
+// Problem link :  https://cses.fi/problemset/task/1647
 
 
 int main()
@@ -34,7 +34,7 @@ int main()
         // Preprocessing
 
         int len = (int)sqrt(n + 0.1) + 1;
-        vector<ll>b(len);
+        vector<ll>b(len, 0);
         for (int i = 0; i < n; i++)
         {
             b[i / len] += a[i];
@@ -49,21 +49,30 @@ int main()
             cin >> l >> r;
             l--;
             r--;
-            ll sum = 0;
-            for (int i = l; i <= r;)
+            ll res = 0;
+            int lb = l / len;
+            int rb = r / len;
+            if (rb == lb)
             {
-                if (i % len == 0 && i + len - 1 <= r)
+                for (int i = l; i <= r; i++)
+                    res += a[i];
+            }
+            else
+            {
+                for (int i = l; i < (lb + 1)*len; i++)
                 {
-                    sum += b[i / len];
-                    i += len;
+                    res += a[i];
                 }
-                else
+                for (int i = lb + 1; i < rb; i++)
                 {
-                    sum += a[i];
-                    i++;
+                    res += b[i];
+                }
+                for (int i = rb * len; i <= r; i++)
+                {
+                    res += a[i];
                 }
             }
-            cout << sum << '\n';
+            cout << res << '\n';
         }
 
     }
