@@ -1,123 +1,104 @@
 #include <bits/stdc++.h>
-
-#define ull unsigned ll
-#define ll long long int
-#define ld long double
-#define pb push_back
-#define mp make_pair
-#define mt make_tuple
-#define ff first
-#define ss second
-#define nui 100
-#define pi 3.1415926535897932384626
-#define nu 2
-#define INF 100000000000
 #pragma GCC optimize("Ofast")
 #pragma GCC target("avx,avx2,fma")
 #pragma GCC optimization ("unroll-loops")
-#define F(i,a,n) for(ll i=a;i<n;i++)
-#define B(i,a,n) for(ll i=n-1;i>=a;i--)
-#define tc int t;cin>>t;while(t--)
-#define tcf ll t;cin>>t;for(int w=1;w<=t;w++)
-#define Ans(a,b) cout<<"Case #"<<a<<": "<<b<<"\n";
-//const int mod = 1000000007;
-const int mod = 998244353;
+#define ll long long int
 using namespace std;
 
-// Problem Link : https://www.spoj.com/problems/DQUERY/
 
-const int blk=555;
+const int blk = 700;
+
 struct query
 {
-    int l,r,i;
+    int l, r, ind;
 };
 
-int fre[1000001];
-int ct=0;
-query Q[200001];
-int a[30001];
-int ans[200001];
+bool comp(query &a, query &b)
+{
+    if (a.l / blk != b.l / blk)
+        return a.l / blk < b.l / blk;
+    return (a.r < b.r) ;
+}
 
-bool cmp(query a,query b)
-{
-    if(a.l/blk !=b.l/blk)
-    {
-        return a.l/blk<b.l/blk;
-    }
-    return a.r<b.r;
-}
-void add(int pos)
-{
-    fre[a[pos]]++;
-    if(fre[a[pos]]==1)
-    {
+int n, nq;
+vector<int>a(30001);
+query q[200001];
+
+int ct = 0;
+int m[1000001];
+int ans[1000001];
+
+
+
+void add(int pos) {
+    m[a[pos]]++;
+    if (m[a[pos]] == 1)
         ct++;
-    }
 }
-void remov(int pos)
-{
-    fre[a[pos]]--;
-    if(fre[a[pos]]==0)
-    {
+void remove(int pos) {
+    m[a[pos]]--;
+    if (m[a[pos]] == 0)
         ct--;
-    }
 }
+
+
 int main()
 {
 
     ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
-    
-    int n;
-    cin>>n;
-    F(i,0,n)
+
+    ll t;
+    t = 1;
+    // cin >> t;
+
+    while (t--)
     {
-        cin>>a[i];
-    }
-    int q;
-    cin>>q;
-    for(int i=0;i<q;i++)
-    {
-        cin>>Q[i].l>>Q[i].r;
-        Q[i].i=i;
-        Q[i].l--,Q[i].r--;
-    }
-    sort(Q,Q+q,cmp);
-    int ml=0;
-    int mr=-1;
-    for(int i=0;i<q;i++)
-    {
-        int L=Q[i].l;
-        int R=Q[i].r;
-        while(ml>L)
-        {
-            ml--;
-            add(ml);
+        ct = 0;
+        cin >> n;
+        for (int i = 0; i < n; i++)
+            cin >> a[i];
+
+        cin >> nq;
+        for (int i = 0; i < nq; i++) {
+            cin >> q[i].l >> q[i].r;
+            q[i].l--, q[i].r--;
+            q[i].ind = i;
         }
-        while(mr<R)
-        {
-            mr++;
-            add(mr);
+        sort(q, q + nq, comp);
+        int ml = 0;
+        int mr = -1;
+        for (int i = 0; i < nq; i++) {
+
+            int cl = q[i].l;
+            int cr = q[i].r;
+            while (ml > cl)
+            {
+                ml--;
+                add(ml);
+            }
+            while (mr < cr)
+            {
+                mr++;
+                add(mr);
+            }
+            while (ml < cl)
+            {
+                remove(ml);
+                ml++;
+            }
+            while (mr > cr)
+            {
+                remove(mr);
+                mr--;
+            }
+            ans[q[i].ind] = ct;
         }
-        while(ml<L)
-        {
-            remov(ml);
-            ml++;
+        for (int i = 0; i < nq; i++) {
+            cout << ans[i] << '\n';
         }
-        while(mr>R)
-        {
-            remov(mr);
-            mr--;
-        }
-        ans[Q[i].i]=ct;
+
     }
-    for(int i=0;i<q;i++)
-    {
-        cout<<ans[i]<<"\n";
-    }
-          
+
+
     return 0;
-
 }
-
-// For 10^5 Block size=700
- 
