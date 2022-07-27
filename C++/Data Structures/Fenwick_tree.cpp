@@ -9,6 +9,43 @@ const int N = 200001;
 // problem link : https://www.spoj.com/problems/INVCNT/
 
 
+/*
+
+struct FTree {
+
+    vector<ll>bit;
+    int N;
+    void init(int n) {
+        bit.resize(n + 1);
+        N = n + 1;
+    }
+    void update(int i, ll x) {
+        for (; i < N; i += i & (-i)) {
+            bit[i] += x;
+        }
+    }
+    ll sum(int i) {
+
+        ll res = 0;
+        for (; i > 0; i -= i & (-i)) {
+            res += bit[i];
+        }
+        return res;
+    }
+    ll sum(int l, int r) {
+        if (l > r)
+            return 0;
+        return sum(r) - sum(l - 1);
+    }
+
+};
+
+
+
+
+
+*/
+
 ll bit[N + 5];
 
 void update(int i, ll x) {
