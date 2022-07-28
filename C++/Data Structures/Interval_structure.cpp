@@ -31,6 +31,7 @@ struct range_maintainance {
                 break;
             s.erase(it);
         }
+        s.insert(x,y);
 
     }
     void clear_range(int x, int y)
