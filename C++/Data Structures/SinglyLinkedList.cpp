@@ -18,12 +18,6 @@ Node::Node(int data=0,Node* ptr=NULL)
 	next = ptr;
 }
 
-//destructor for Node Class
-//Node::~Node()
-//{
-//	cout<<"Node deleted\n";	
-//}
-
 
 //Singly linked list Class
 class SLL{
