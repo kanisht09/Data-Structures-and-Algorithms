@@ -8,15 +8,10 @@
 Time Complexity:0(N*N)
 Space Complexity:O(1)
 
-*/
-
-/*
-
 Problem Link:https://practice.geeksforgeeks.org/problems/insertion-sort/1
 
 */
-#include <iostream>
-#include <vector>
+#include <bits/stdc+++.h>
 using namespace std;
 
 void insertionSort(vector<int> arr, int n)

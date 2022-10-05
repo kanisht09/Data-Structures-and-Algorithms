@@ -1,14 +1,14 @@
 /*
 Time Complexity:O(N*N)
 Space Complexity:O(1)
-*/
 
-/*
+
+
 Problem Link:https://practice.geeksforgeeks.org/problems/selection-sort/1
 */
 
-#include <iostream>
-#include <vector>
+#include <bits/stdc+++.h>
+
 using namespace std;
 
 // Swap function
