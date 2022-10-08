@@ -1,68 +1,62 @@
-/**
-  * Given a weighted, undirected graph  with  vertices and  edges. 
-  * You want to find a spanning tree of this graph which connects all vertices and 
-  * has the least weight (i.e. the sum of weights of edges is minimal). 
-  * A spanning tree is a set of edges such that any vertex can reach any other by exactly one simple path. 
-  * The spanning tree with the least weight is called a minimum spanning tree.
-  */
-  
-// Prim's Algorithm in C++
-
-#include <cstring>
-#include <iostream>
+#include <bits/stdc++.h>
 using namespace std;
 
-#define INF 9999999
+int minKey(int key[], bool mstSet[], int V) {
+	int min = INT_MAX, min_index;
 
-#define V 5
+	for (int v = 0; v < V; v++)
+		if (mstSet[v] == false && key[v] < min)
+			min = key[v], min_index = v;
+	return min_index;
+}
 
-int G[V][V] = {
-  {0, 9, 75, 0, 0},
-  {9, 0, 95, 19, 42},
-  {75, 95, 0, 51, 66},
-  {0, 19, 51, 0, 31},
-  {0, 42, 66, 31, 0}};
+void printMST(int parent[], vector<vector<int> > graph, int V) {
+	cout << "Edge \tWeight\n";
+	for (int i = 1; i < V; i++)
+		cout << parent[i] << " - " << i << " \t"
+			<< graph[i][parent[i]] << " \n";
+}
+
+void primMST(vector<vector<int> > graph, int V){
+	int parent[V];
+
+	int key[V];
+
+	bool mstSet[V];
+
+	for (int i = 0; i < V; i++)
+		key[i] = INT_MAX, mstSet[i] = false;
+
+	key[0] = 0;
+	parent[0] = -1; 
+
+	for (int count = 0; count < V - 1; count++) {
+		int u = minKey(key, mstSet, V);
+
+		mstSet[u] = true;
+
+		for (int v = 0; v < V; v++)
+
+			if (graph[u][v] && mstSet[v] == false
+				&& graph[u][v] < key[v])
+				parent[v] = u, key[v] = graph[u][v];
+	}
+
+	printMST(parent, graph, V);
+}
 
 int main() {
-  int no_edge;  
-  int selected[V];
+  int V; cin >> V;
+	vector<vector<int> > graph(V, vector<int>(V));
 
-  memset(selected, false, sizeof(selected));
-
-  no_edge = 0;
-
-  selected[0] = true;
-
-  int x;  //  row number
-  int y;  //  col number
-
-  cout << "Edge"
-     << " : "
-     << "Weight";
-  cout << endl;
-  while (no_edge < V - 1) {
-    int min = INF;
-    x = 0;
-    y = 0;
-
-    for (int i = 0; i < V; i++) {
-      if (selected[i]) {
-        for (int j = 0; j < V; j++) {
-          if (!selected[j] && G[i][j]) { 
-            if (min > G[i][j]) {
-              min = G[i][j];
-              x = i;
-              y = j;
-            }
-          }
-        }
-      }
+  cout << "Enter the adjacency matrix: \n";
+  for(int i=0; i<V; i++) {
+    for(int j=0; j<V; j++) {
+      cin >> graph[i][j];
     }
-    cout << x << " -> " << y << " :  " << G[x][y];
-    cout << endl;
-    selected[y] = true;
-    no_edge++;
   }
 
-  return 0;
+	primMST(graph, V);
+
+	return 0;
 }
