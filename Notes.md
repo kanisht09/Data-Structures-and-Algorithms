@@ -47,5 +47,6 @@ GCD(a[l...r])>= GCD(a[l...r'] where r'>r
  (ii)  Bellman Ford Algorithm - dp <br>
  (iii) Floyd Warshall - dp <br>
  
+ * The minimum number of swaps required to sort a permutation is n-(number of cycles in the permutation), where n is the size of the permutation.
  
  
