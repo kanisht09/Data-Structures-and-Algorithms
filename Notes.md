@@ -50,3 +50,15 @@ GCD(a[l...r])>= GCD(a[l...r'] where r'>r
  * The minimum number of swaps required to sort a permutation is n-(number of cycles in the permutation), where n is the size of the permutation.
  
  
+* 
+    Given an n sized array with values a1,a2,....an.
+    If we want all the terms of the transformed array then the terms % n , should be unique    
+    
+    
+    a1 + n * k1 , a2 + n * k2 , a3 + n * k3, ......, an + n * kn
+    
+    i.e  (a1 % n) != (a2 % n) != (a3 % n) != ...... != (an % n)  
+    
+    here % is the modulo operator.
+    
+    Problem link : [https://codeforces.com/contest/1344/problem/A] for the application of the above learning.
