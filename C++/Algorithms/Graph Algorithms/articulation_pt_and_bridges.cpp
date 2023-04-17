@@ -31,50 +31,7 @@ const ll INF = 1e18;
 
 using namespace std;
 
-bool primech(ll n)
-{
-    if (n <= 1)  return false;
-    if (n <= 3)  return true;
-    if (n % 2 == 0 || n % 3 == 0) return false;
-    for (int i = 5; i * i <= n; i = i + 6)
-        if (n % i == 0 || n % (i + 2) == 0)
-            return false;
-    return true;
-}
 
-
-// bool prime[10000005];
-// void sieve()
-// {
-//     memset(prime, 1, sizeof(prime));
-//     prime[1] = 0;
-//     for (ll i = 2; i * i <= 10000001; i++)
-//     {
-//         if (prime[i] == 1)
-//         {
-//             for (ll j = i * i; j <= 10000001 ; j += i)
-//             {
-//                 prime[j] = 0;
-//             }
-//         }
-//     }
-
-// }
-ll binpowmod(ll a, ll b, ll m = mod)
-{
-    ll res = 1;
-    while (b > 0)
-    {
-        if (b & 1)
-        {
-            res = ((res % m) * (a % m)) % m;
-        }
-        a = ((a % m) * (a % m)) % m;
-        b >>= 1;
-    }
-    res %= m;
-    return res;
-}
 
 void trav(vector<ll>v)
 {
@@ -90,6 +47,7 @@ const int N = 100001;
 
 vector<int>adj[N];
 int inTime[N], loTime[N];
+int numSplit[N]; // numSplit[i] -> stores the number of components formed after deleting the ith node
 int timer = 0;
 void dfs(int src, int par) {
 
@@ -99,6 +57,7 @@ void dfs(int src, int par) {
     inTime[src] = loTime[src] = timer;
     bool isArti = false;
     int child = 0;
+    numSplit[src] = 1;
     for (auto ch : adj[src]) {
         if (ch == par) {
             continue;
@@ -109,6 +68,7 @@ void dfs(int src, int par) {
             loTime[src] = min(loTime[src], loTime[ch]);
             if (loTime[ch] >= inTime[src]) {
                 isArti = true;
+                numSplit[src]++;
                 // ch will form a new component
             }
             if (loTime[ch] > inTime[src]) {
@@ -126,28 +86,16 @@ void dfs(int src, int par) {
         }
     }
 
+    if (par == 0) {
+        numSplit[src] = child;
+    }
     if ((par == 0 && child > 1) || (isArti && par != 0)) {
         // src is an articulation point
+
+
         cout << src << " is an articulation point.\n";
     }
 }
-
-/*
-
-input : 
-
-8 9
-1 2
-2 3
-3 1
-3 4
-4 5
-4 6
-6 7
-7 8
-8 6
-
-*/
 
 
 int main()
@@ -171,6 +119,7 @@ int main()
         timer = 0;
         for (int i = 1; i <= n; i++) {
             adj[i].clear();
+            numSplit[i] = 0;
             inTime[i] = 0;
             loTime[i] = 0;
         }
@@ -180,8 +129,25 @@ int main()
             adj[x].pb(y);
             adj[y].pb(x);
         }
+        int cc = 0;
+        for (int i = 1; i <= n; i++) {
+            if (!inTime[i]) {
+                cc++;
+                dfs(i, 0);
 
-        dfs(1, 0);
+            }
+        }
+
+        for (int i = 1; i <= n; i++) {
+
+            if (adj[i].size() == 0) {
+                cout << cc - 1 << ' ';
+            }
+            else
+            {
+                cout << cc - 1 + numSplit[i] << ' ';
+            }
+        }
 
     }
     return 0;
