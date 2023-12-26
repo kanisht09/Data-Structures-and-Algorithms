@@ -62,3 +62,6 @@ GCD(a[l...r])>= GCD(a[l...r'] where r'>r
     here % is the modulo operator.
     
     Problem link : [https://codeforces.com/contest/1344/problem/A] for the application of the above learning.
+
+*  nCm or C(n,m) is odd if and only if the binary digits (bits) in the binary expansion of n are a subset of the bits of m.
+
